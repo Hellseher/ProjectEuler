@@ -1,2 +1,2 @@
 # pe
-Project Euler handy function (python)
+[Project Euler](https://projecteuler.net/) function library.
