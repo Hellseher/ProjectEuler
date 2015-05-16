@@ -2,15 +2,15 @@
 # _*_ coding: UTF-8 _*_
 # File          :  pe.py
 # Created       :  Mon 27 Apr 2015 19:01:22
-# Last Modified :  Fri 08 May 2015 23:03:21
+# Last Modified :  Sat 16 May 2015 12:32:01
 # Maintainer    :  sharlatan, <sharlatanus@gmail.com>
-# Title         :
+# Title         :  PROJECT EULERS FUNCTIONS
 # License       :  Same as Python (GPL)
-# Credits       :
+# Credits       :  https://projecteuler.net
 #
 # -=:[ Description ]:=-
-#
-#
+# This file contains functions which I used for solving Project Euler's
+# problems.
 # <END  OF  DESCRIPTION>-------------------------------------------------------
 
 
@@ -77,3 +77,15 @@ def pclrow(n):
         pos = pos * (n + 1 - k)/k
         yield pos
     yield 1
+
+# -=:[ Figurate numbers ]:=----------------------------------------------------
+
+def triangn(num):
+    """ Yield a list of ingeter triangular number up to num. """
+    for tr in xrange(0, num):
+        yield tr*(tr+1)/2
+    # -=:[ Reference ]:=-
+    # Carl Friedrich Gauss
+    # OEIS : A000217
+    # -=:[ Links ]:=-
+    # https://en.wikipedia.org/wiki/Triangular_number
