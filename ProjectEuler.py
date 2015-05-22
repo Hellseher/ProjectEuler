@@ -2,7 +2,7 @@
 # _*_ coding: UTF-8 _*_
 # File          :  pe.py
 # Created       :  Mon 27 Apr 2015 19:01:22
-# Last Modified :  Wed 20 May 2015 23:56:34
+# Last Modified :  Fri 22 May 2015 23:07:13
 # Maintainer    :  sharlatan, <ssharlatanus@gmail.com>
 # Title         :  PROJECT EULER FUNCTIONS
 # License       :  Same as Python (GPL)
@@ -41,7 +41,7 @@ import itertools
 
 # -=:[ Prime numbers ]:=-
 def isp(num):
-    """ Check num for primality. """
+    """ Is prime?: check num for primality. """
     if num == 1:
         return False
     elif num < 4:
@@ -65,13 +65,26 @@ def isp(num):
 
 
 def ps(num):
-    """ Yield prime sieve up to num. """
+    """ Prime sieve: generate prime sieve up to num. """
     if num == 2:
         yield 2
     for i in xrange(3, num+1):
         if isp(i):
             yield i
-# <END OF PRIME NUMBRS>--------------------------------------------------------
+
+
+# <END OF PRIME NUMBERS>--------------------------------------------------------
+
+# -=:[ Divisors ]:=-
+def dr(ran, num):
+    """ Divisor range: generate a list of number in ran dividable by num. """
+    r = 2
+    while r < ran:
+        result = r % num
+        if result == 0:
+            yield r / num
+        r += 1
+# <END OF # DIVISORS>-----------------------------------------------------------
 
 
 def divs(num):
