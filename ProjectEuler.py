@@ -2,7 +2,7 @@
 # _*_ coding: UTF-8 _*_
 # File          :  pe.py
 # Created       :  Mon 27 Apr 2015 19:01:22
-# Last Modified :  Sat 30 May 2015 23:34:56
+# Last Modified :  Sat 30 May 2015 23:38:37
 # Maintainer    :  sharlatan, <ssharlatanus@gmail.com>
 # Title         :  PROJECT EULER FUNCTIONS
 # License       :  Same as Python (GPL)
@@ -12,7 +12,6 @@
 # This file contains functions which I used for solving Project Euler's
 # problems.
 # num is alway a integer number given as argument to any of functions.
-# <END OF DESCRIPTION>---------------------------------------------------------
 
 
 def fnls():
