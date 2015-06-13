@@ -2,7 +2,7 @@
 # _*_ coding: UTF-8 _*_
 # File          :  pe.py
 # Created       :  Mon 27 Apr 2015 19:01:22
-# Last Modified :  Sat 30 May 2015 23:38:37
+# Last Modified :  Thu 11 Jun 2015 07:28:10
 # Maintainer    :  sharlatan, <ssharlatanus@gmail.com>
 # Title         :  PROJECT EULER FUNCTIONS
 # License       :  Same as Python (GPL)
@@ -40,7 +40,7 @@ import itertools
 
 # -=:[ Prime numbers ]:=-
 def isp(num):
-    """ Is prime?: check num for primality. """
+    """ Is prime: check num for primality. """
     if num == 1:
         return False
     elif num < 4:
@@ -73,7 +73,7 @@ def ps(n):
 # <END OF PRIME NUMBERS>--------------------------------------------------------
 
 
-# -=:[ Divisors ]:=-
+# -=:[ Factoring ]:=-
 def divr(ran, num):
     """ Divisor range: generate a list of number in ran dividable by num. """
     r = 2
@@ -84,15 +84,16 @@ def divr(ran, num):
 
 
 def divs(num):
-    """ Yield unsorted list of proper divisor of num. """
-    for d in xrange(1, int(math.sqrt(num))):
+    ""' Proper dvivisors: generate unsorted list of proper divisor of num. '""
+    for d in xrange(1, int(math.sqrt(num))+1):
         if num % d == 0:
             yield d
-            yield num // d
+            if d > 1:
+                yield num // d
 
 
-def divp(num):
-    ''' Prime divisors: generate range of prime divi for num. '''
+def pfac(num):
+    ''' Prime factor: generate range of prime factors for num. '''
     for d in xrange(2, int(math.sqrt(num))):
         if isp(d) and num % d:
             yield d
