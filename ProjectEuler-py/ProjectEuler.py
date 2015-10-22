@@ -2,7 +2,7 @@
 # _*_ coding: UTF-8 _*_
 # File          :  pe.py
 # Created       :  Mon 27 Apr 2015 19:01:22
-# Last Modified :  Thu 22 Oct 2015 18:10:58
+# Last Modified :  Thu 22 Oct 2015 18:59:46
 # Maintainer    :  sharlatan, <ssharlatanus@gmail.com>
 # Title         :  PROJECT EULER FUNCTIONS
 # License       :  Same as Python (GPL)
@@ -14,8 +14,8 @@
 # num is alway a integer number given as argument to any of functions.
 
 
-def fnls():
-    ''' Return a list of used functions with short description. '''
+def lsfn():
+    ''' ListFunctions: return a list of used functions. '''
     function_list = {
         "isp(num)": "Check num for primality.",
         "ps(num)": "Yield prime sieve up to num.",
@@ -38,7 +38,7 @@ import math
 
 # -=:[ Prime numbers ]:=-
 def isp(num):
-    ''' Is prime: check num for primality. '''
+    ''' IsPrime: check num for primality. '''
     if num == 1:
         return False
     elif num < 4:
@@ -62,7 +62,7 @@ def isp(num):
 
 
 def ps(n):
-    ''' Prime sieve: generate prime sieve up to n's position. '''
+    ''' PrimeSieve: generate prime sieve up to n's position. '''
     i = 2
     while i < n:
         if isp(i):
@@ -73,7 +73,7 @@ def ps(n):
 
 # -=:[ Factoring ]:=-
 def divr(ran, num):
-    ''' Divisor range: generate a list of number in ran dividable by num. '''
+    ''' DivisorRange: generate a list of number in ran dividable by num. '''
     r = 2
     while r < ran:
         if r % num == 0:
@@ -82,7 +82,7 @@ def divr(ran, num):
 
 
 def divs(num):
-    '''Proper divisors: generate unsorted list of num's proper divisors. '''
+    ''' Divisors: generate unsorted list of num's proper divisors. '''
     for d in xrange(1, num):
         if num % d == 0:
             yield d
@@ -91,7 +91,7 @@ def divs(num):
 
 
 def pfac(num):
-    ''' Prime factor: generate range of prime factors for num. '''
+    ''' PrimeFactor: generate range of prime factors for num. '''
     for d in xrange(2, int(math.sqrt(num))):
         if isp(d) and num % d:
             yield d
@@ -99,14 +99,14 @@ def pfac(num):
 
 
 def ds(num):
-    ''' Recursively return digits sum of num. '''
+    ''' DigitSum: recursively return digits sum of num. '''
     if num < 10:
         return num
     return num % 10 + ds(num // 10)
 
 
 def dfs(num):
-    ''' Return factorised digits sum of num. '''
+    ''' DigitFactorialSum: return factorised digits sum of num. '''
     if num < 10:
         return math.factorial(num)
     return math.factorial(num % 10) + dfs(num // 10)
@@ -118,7 +118,7 @@ def dsfs(num):
 
 
 def pclrow(n):
-    ''' Yield the n'th row of Pascal triangle. '''
+    ''' PascalRow: yield the n'th row of Pascal triangle. '''
     pos = 1
     yield pos
     for k in xrange(1, n):
@@ -129,7 +129,7 @@ def pclrow(n):
 
 # -=:[ Figurate numbers ]:=-
 def trgn(n, only_one=None):
-    ''' Triangular numbers:  generate a list of ingeter trgn  up to num. '''
+    ''' TriangularNumber:  generate a list of ingeter trgn  up to num. '''
     if only_one == "one":
         yield n * (n + 1) / 2
     else:
@@ -138,7 +138,7 @@ def trgn(n, only_one=None):
 
 
 def sqrn(n, only_one=None):
-    ''' Square number[s]: generate list of sqrn if not given "one". '''
+    ''' SquareNumber: generate list of sqrn if not given "one". '''
     if only_one == "one":
         yield n**2
     else:
@@ -147,7 +147,7 @@ def sqrn(n, only_one=None):
 
 
 def pntn(num, only_one=None):
-    ''' Pentagonal number[s]: yeild list if not "one".'''
+    ''' PentagonalNumber: yeild list if not "one".'''
     if only_one == "one":
         yield (3 * num**2 - num) / 2
     else:
@@ -156,7 +156,7 @@ def pntn(num, only_one=None):
 
 
 def hexn(n, only_one=None):
-    ''' Hexagonal number: generated up to n's position. '''
+    ''' HexagonalNumber: generated up to n's position. '''
     if only_one == "one":
         yield n * (2*n - 1)
     else:
@@ -165,7 +165,7 @@ def hexn(n, only_one=None):
 
 
 def hepn(n, only_one=None):
-    ''' Heptagoanl number: generated up to n's position. '''
+    ''' HeptagoanlNumber: generated up to n's position. '''
     if only_one == "one":
         yield n * (5*n - 3) / 2
     else:
@@ -174,7 +174,7 @@ def hepn(n, only_one=None):
 
 
 def octn(n, only_one=None):
-    ''' Octagoanl number: generated up to n's position. '''
+    ''' OctagoanlNumber: generated up to n's position. '''
     if only_one == "one":
         yield n * (3*n + 2)
     else:
@@ -183,7 +183,7 @@ def octn(n, only_one=None):
 
 
 def ttrn(n):
-    ''' Yield a list of integer tetrahedral numbers up to n's position. '''
+    ''' TetrahedralNumber: yield a list of int tetrahedral num up to n's. '''
     for n in xrange(0, n+1):
         yield (n*(n + 1) * (n + 2)) / 6
 # <END OF FIGURATE NUBERS>-----------------------------------------------------
