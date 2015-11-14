@@ -2,7 +2,7 @@
 # _*_ coding: UTF-8 _*_
 # File          :  pe.py
 # Created       :  Mon 27 Apr 2015 19:01:22
-# Last Modified :  Thu 22 Oct 2015 18:59:46
+# Last Modified :  Sat 14 Nov 2015 23:02:33
 # Maintainer    :  sharlatan, <ssharlatanus@gmail.com>
 # Title         :  PROJECT EULER FUNCTIONS
 # License       :  Same as Python (GPL)
@@ -11,7 +11,8 @@
 # -=:[ DESCRIPTION ]:=-
 # This file contains functions which I used for solving Project Euler's
 # problems.
-# num is alway a integer number given as argument to any of functions.
+# Shortcuts :
+#           : num - integer number
 
 
 def lsfn():
@@ -81,13 +82,13 @@ def divr(ran, num):
         r += 1
 
 
-def divs(num):
-    ''' Divisors: generate unsorted list of num's proper divisors. '''
-    for d in xrange(1, num):
-        if num % d == 0:
-            yield d
-            # if d > 1:
-            # yield num // d
+def factors(num):
+    ''' Factors: generate unsorted list of num's proper divisors. '''
+    for div in xrange(1, int(math.sqrt(num))+1):
+        if num % div == 0:
+            yield div
+            if num//div != num:
+                yield num//div
 
 
 def pfac(num):
@@ -95,6 +96,39 @@ def pfac(num):
     for d in xrange(2, int(math.sqrt(num))):
         if isp(d) and num % d:
             yield d
+
+
+def aliquot_sum(num):
+    ''' Aliquot Sum: returns the sum of all proper divisor of num. '''
+    return sum(factors(num))
+
+# --[ Perfect, abundant, deficient numbers
+
+
+def is_perfect(num):
+    ''' Is Perfect: '''
+    if aliquot_sum(num) == num:
+        return True
+    return False
+
+
+def is_deficient(num):
+    ''' Is Deficient:  '''
+    if aliquot_sum(num) < num:
+        return True
+    return False
+
+
+def is_abundant(num):
+    ''' Is Abundant: '''
+    if aliquot_sum(num) > num:
+        return True
+    return False
+
+# --[referance
+# https://oeis.org/wiki/Abundant_numbers
+# https://en.wikipedia.org/wiki/Divisor_function
+# A005101
 # <END OF  DIVISORS>-----------------------------------------------------------
 
 
