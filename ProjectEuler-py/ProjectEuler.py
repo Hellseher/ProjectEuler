@@ -2,7 +2,7 @@
 # _*_ coding: UTF-8 _*_
 # File          :  pe.py
 # Created       :  Mon 27 Apr 2015 19:01:22
-# Last Modified :  Sat 14 Nov 2015 23:02:33
+# Last Modified :  Sun 15 Nov 2015 00:07:58
 # Maintainer    :  sharlatan, <ssharlatanus@gmail.com>
 # Title         :  PROJECT EULER FUNCTIONS
 # License       :  Same as Python (GPL)
@@ -84,11 +84,18 @@ def divr(ran, num):
 
 def factors(num):
     ''' Factors: generate unsorted list of num's proper divisors. '''
-    for div in xrange(1, int(math.sqrt(num))+1):
+    yield 1
+
+    limit = int(math.sqrt(num))
+    if limit * limit == num:
+        yield limit
+    else:
+        limit += 1
+
+    for div in xrange(2, limit):
         if num % div == 0:
             yield div
-            if num//div != num:
-                yield num//div
+            yield num / div
 
 
 def pfac(num):
@@ -121,9 +128,9 @@ def is_deficient(num):
 
 def is_abundant(num):
     ''' Is Abundant: '''
-    if aliquot_sum(num) > num:
-        return True
-    return False
+    if num < 12:
+        return False
+    return aliquot_sum(num) > num
 
 # --[referance
 # https://oeis.org/wiki/Abundant_numbers
