@@ -1,6 +1,6 @@
 # File          : README.md
 # Created       : Sat 30 May 2015 22:54:09
-# Last Modified : <2017-5-17 Wed 23:10:30 BST> sharlatan
+# Last Modified : <2017-5-18 Thu 00:47:58 BST> sharlatan
 # Maintainer    : sharlatan <sharlatanus@gmail.com>
 
 #+BEGIN_QUOTE
@@ -58,6 +58,41 @@ ProjectEuler
 
 14 directories
 #+END_SRC
+
+*** Tested on
+#+BEGIN_SRC sh  :results value org :results output replace :exports results
+printf "Workstation stat\n"
+echo  "--------------------------------------------------"
+printf "CPU\t: "; grep -m 1 -oP "(?<=model\sname\s:\s).+" /proc/cpuinfo
+printf "OS\t: ";  uname -ori
+printf "DISTR\t: "; lsb_release -sd
+echo
+printf "Implementations stat\n"
+echo "---------------------------------------------------"
+printf "SBCL\t: "; sbcl --version
+printf "PYTHON3\t: "; python3 --version
+printf "RUBY\t: "; ruby --version
+printf "JAVA\t: "; java -version 2>&1 | head -n1
+printf "HASKELL\t: "; ghc --version
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_SRC org
+Workstation stat
+--------------------------------------------------
+CPU	: Intel(R) Core(TM) i7-3770S CPU @ 3.10GHz
+OS	: 4.10.10-100.fc24.x86_64 x86_64 GNU/Linux
+DISTR	: "Fedora release 24 (Twenty Four)"
+
+Implementations stat
+---------------------------------------------------
+SBCL	: SBCL 1.3.4-1.fc24
+PYTHON3	: Python 3.5.3
+RUBY	: ruby 2.3.3p222 (2016-11-21 revision 56859) [x86_64-linux]
+JAVA	: openjdk version "1.8.0_131"
+HASKELL	: The Glorious Glasgow Haskell Compilation System, version 7.8.4
+#+END_SRC
+
 
 
 * References
