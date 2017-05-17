@@ -1,11 +1,13 @@
 # File          : README.md
 # Created       : Sat 30 May 2015 22:54:09
-# Last Modified : <2017-5-17 Wed 23:02:55 BST> sharlatan
+# Last Modified : <2017-5-17 Wed 23:10:30 BST> sharlatan
 # Maintainer    : sharlatan <sharlatanus@gmail.com>
 
 #+BEGIN_QUOTE
 為せば成る
+
 為さねば成らぬ何事も
+
 成らぬは人の為さぬなりけり
 #+END_QUOTE
 
