@@ -1,0 +1,63 @@
+# File          : README.md
+# Created       : Sat 30 May 2015 22:54:09
+# Last Modified : <2017-5-17 Wed 22:52:26 BST> sharlatan
+# Maintainer    : sharlatan <sharlatanus@gmail.com>
+
+#+BEGIN_QUOTE
+為せば成る
+為さねば成らぬ何事も
+成らぬは人の為さぬなりけり
+#+END_QUOTE
+
+
+* Synopses
+[[https://projecteuler.net/][Project Euler]] collection of solutions and libraries.
+
+It's a very good start for those who try to learn new Programming Language or
+mastering some Math problem solving.
+
+I've tried to structure this project very clearly, it should takes less time to
+figure out for newcomers how to use libraries and find inspiration in
+solutions.
+
+Please check =References= section for future reference links.
+
+
+* Mathematical subjects
+** Combinatorics
+** Permutation
+
+* Project structure
+
+#+BEGIN_SRC sh :results value org :results output replace :exports results
+pwd | rev | cut -d"/" -f1 | rev
+
+tree -L 2 -d
+#+END_SRC
+
+#+RESULTS:
+#+BEGIN_SRC org
+ProjectEuler.net
+.
+├── lib
+│   ├── cl
+│   └── py
+├── num
+├── pdf
+├── src
+│   ├── pe-c
+│   ├── pe-clojure
+│   ├── pe-commonlisp
+│   ├── pe-javascript
+│   ├── pe-python
+│   └── pe-scheme
+└── txt
+
+13 directories
+#+END_SRC
+
+
+* References
+- http://robertbrown123.blogspot.co.uk/2007/11/project-euler-solutions-in-common-lisp.html
+- https://github.com/Liutos/Project-Euler
+- https://github.com/skeeto/euler-cl
