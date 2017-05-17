@@ -1,8 +1,8 @@
 
 
-from termcolor import colored
 import time
 import sys
+from termcolor import colored
 
 
 INIT_TIME = time.time()
