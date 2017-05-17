@@ -1,7 +1,7 @@
 ;;; pe-042-problem.lisp -- Coded triangle numbers
 ;;; Author   : Sharlatan <sharlatan@protonmail.com>
 ;;; Created  : <2017-5-14 Sun 00:24:07 BST>
-;;; Modified : <2017-5-17 Wed 21:36:06 BST> sharlatan
+;;; Modified : <2017-5-17 Wed 23:32:11 BST> sharlatan
 ;;; Link     : https://projecteuler.net/problem=42
 
 ;;;
@@ -20,10 +20,13 @@
 ;; words?
 
 (load "pe.lisp")
+
 (defun opener (file-path)
   (with-open-file (streem file-path)
     (loop for line = (read-line streem nil)
-       while line do (format t "~a~%" line))))
+          while line do (format t "~a~%" line))))
+
 (loop for i from 1 to 100000 do
-     (format t "~d: ~d~%" i (3-num-p i)))
+  (format t "~d: ~d~%" i (3-num-p i)))
+
 ;;; End of pe-042-problem.lisp
