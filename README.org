@@ -1,6 +1,6 @@
 # File          : README.md
 # Created       : Sat 30 May 2015 22:54:09
-# Last Modified : <2017-5-17 Wed 22:52:26 BST> sharlatan
+# Last Modified : <2017-5-17 Wed 23:02:55 BST> sharlatan
 # Maintainer    : sharlatan <sharlatanus@gmail.com>
 
 #+BEGIN_QUOTE
@@ -32,13 +32,14 @@ Please check =References= section for future reference links.
 #+BEGIN_SRC sh :results value org :results output replace :exports results
 pwd | rev | cut -d"/" -f1 | rev
 
-tree -L 2 -d
+tree -d
 #+END_SRC
 
 #+RESULTS:
 #+BEGIN_SRC org
-ProjectEuler.net
+ProjectEuler
 .
+├── bin
 ├── lib
 │   ├── cl
 │   └── py
@@ -53,7 +54,7 @@ ProjectEuler.net
 │   └── pe-scheme
 └── txt
 
-13 directories
+14 directories
 #+END_SRC
 
 
