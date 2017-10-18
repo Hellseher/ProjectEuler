@@ -1,0 +1,1 @@
+/home/sharlatan/Projects/my-GitHub/ProjectEuler/src/pe-rust/target/debug/pe_rust: /home/sharlatan/Projects/my-GitHub/ProjectEuler/lib/pe_lib_rust/src/lib.rs /home/sharlatan/Projects/my-GitHub/ProjectEuler/src/pe-rust/src/main.rs

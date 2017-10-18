@@ -1,0 +1,11 @@
+[root]
+name = "pe_rust"
+version = "0.1.0"
+dependencies = [
+ "pe_lib_rust 0.1.0",
+]
+
+[[package]]
+name = "pe_lib_rust"
+version = "0.1.0"
+

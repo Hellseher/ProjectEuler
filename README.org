@@ -1,18 +1,16 @@
-# File          : README.md
+# File          : README.org
 # Created       : Sat 30 May 2015 22:54:09
-# Last Modified : <2017-5-18 Thu 00:47:58 BST> sharlatan
+# Last Modified : <2017-10-18 Wed 22:41:42 BST> sharlatan
 # Maintainer    : sharlatan <sharlatanus@gmail.com>
 
 #+BEGIN_QUOTE
 為せば成る
-
 為さねば成らぬ何事も
-
 成らぬは人の為さぬなりけり
 #+END_QUOTE
 
 
-* Synopses
+* Synopsis
 [[https://projecteuler.net/][Project Euler]] collection of solutions and libraries.
 
 It's a very good start for those who try to learn new Programming Language or
@@ -23,8 +21,7 @@ figure out for newcomers how to use libraries and find inspiration in
 solutions.
 
 Please check =References= section for future reference links.
-
-
+dd
 * Mathematical subjects
 ** Combinatorics
 ** Permutation
@@ -32,9 +29,8 @@ Please check =References= section for future reference links.
 * Project structure
 
 #+BEGIN_SRC sh :results value org :results output replace :exports results
-pwd | rev | cut -d"/" -f1 | rev
-
-tree -d
+pwd | rev  | cut -d"/" -f1 | rev
+tree -d -L 2
 #+END_SRC
 
 #+RESULTS:
@@ -43,57 +39,66 @@ ProjectEuler
 .
 ├── bin
 ├── lib
-│   ├── cl
-│   └── py
+│   ├── pe_lib_c
+│   ├── pe_lib_common_lisp
+│   ├── pe_lib_emacs_lisp
+│   ├── pe_lib_python
+│   ├── pe_lib_ruby
+│   ├── pe_lib_rust
+│   └── pe_lib_unix_shell
 ├── num
 ├── pdf
 ├── src
-│   ├── pe-c
-│   ├── pe-clojure
-│   ├── pe-commonlisp
-│   ├── pe-javascript
-│   ├── pe-python
-│   └── pe-scheme
+│   ├── pe_c
+│   ├── pe_clojure
+│   ├── pe_commonlisp
+│   ├── pe_javascript
+│   ├── pe_python
+│   ├── pe_rust
+│   └── pe_scheme
 └── txt
 
-14 directories
+20 directories
 #+END_SRC
 
 *** Tested on
 #+BEGIN_SRC sh  :results value org :results output replace :exports results
-printf "Workstation stat\n"
-echo  "--------------------------------------------------"
-printf "CPU\t: "; grep -m 1 -oP "(?<=model\sname\s:\s).+" /proc/cpuinfo
-printf "OS\t: ";  uname -ori
-printf "DISTR\t: "; lsb_release -sd
+printf "Workstation\n"
+echo  "-----------"
+printf "CPU\t: %s\n" "$(uname -ori)" 
+printf "OS\t: %s\n" "$(lsb_release -sd)" 
+printf "DISTR\t: %s\n" "$(grep -m 1 -oP "(?<=model\sname\s:\s).+" /proc/cpuinfo)" 
+
 echo
-printf "Implementations stat\n"
-echo "---------------------------------------------------"
-printf "SBCL\t: "; sbcl --version
+printf "Implementations\n"
+echo "---------------"
 printf "PYTHON3\t: "; python3 --version
+printf "CL\t: "; sbcl --version
 printf "RUBY\t: "; ruby --version
 printf "JAVA\t: "; java -version 2>&1 | head -n1
 printf "HASKELL\t: "; ghc --version
+printf "NODE.JS\t: "; node --version
+printf "SCHEME\t: "; guile --version | head -n1
 #+END_SRC
 
 #+RESULTS:
 #+BEGIN_SRC org
-Workstation stat
---------------------------------------------------
-CPU	: Intel(R) Core(TM) i7-3770S CPU @ 3.10GHz
-OS	: 4.10.10-100.fc24.x86_64 x86_64 GNU/Linux
-DISTR	: "Fedora release 24 (Twenty Four)"
+Workstation
+-----------
+CPU	: 4.13.5-200.fc26.x86_64 x86_64 GNU/Linux
+OS	: "Fedora release 26 (Twenty Six)"
+DISTR	: Intel(R) Core(TM) i7-3770S CPU @ 3.10GHz
 
-Implementations stat
----------------------------------------------------
-SBCL	: SBCL 1.3.4-1.fc24
-PYTHON3	: Python 3.5.3
-RUBY	: ruby 2.3.3p222 (2016-11-21 revision 56859) [x86_64-linux]
-JAVA	: openjdk version "1.8.0_131"
-HASKELL	: The Glorious Glasgow Haskell Compilation System, version 7.8.4
+Implementations
+---------------
+PYTHON3	: Python 3.6.2
+CL	: SBCL 1.3.18-1.fc26
+RUBY	: ruby 2.4.1p111 (2017-03-22 revision 58053) [x86_64-linux]
+JAVA	: openjdk version "1.8.0_144"
+HASKELL	: The Glorious Glasgow Haskell Compilation System, version 8.0.2
+NODE.JS	: v6.11.3
+SCHEME	: guile (GNU Guile) 2.0.14
 #+END_SRC
-
-
 
 * References
 - http://robertbrown123.blogspot.co.uk/2007/11/project-euler-solutions-in-common-lisp.html

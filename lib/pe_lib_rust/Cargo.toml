@@ -1,0 +1,6 @@
+[package]
+name = "pe_lib_rust"
+version = "0.1.0"
+authors = ["sharlatan <sharlatanus@gmail.com>"]
+
+[dependencies]
