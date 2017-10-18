@@ -1,6 +1,6 @@
 # File          : README.org
 # Created       : Sat 30 May 2015 22:54:09
-# Last Modified : <2017-10-18 Wed 22:41:42 BST> sharlatan
+# Last Modified : <2017-10-18 Wed 22:48:51 BST> sharlatan
 # Maintainer    : sharlatan <sharlatanus@gmail.com>
 
 #+BEGIN_QUOTE
@@ -66,8 +66,8 @@ ProjectEuler
 printf "Workstation\n"
 echo  "-----------"
 printf "CPU\t: %s\n" "$(uname -ori)" 
-printf "OS\t: %s\n" "$(lsb_release -sd)" 
-printf "DISTR\t: %s\n" "$(grep -m 1 -oP "(?<=model\sname\s:\s).+" /proc/cpuinfo)" 
+printf "OS\t: %s\n" "$(grep -m 1 -oP "(?<=model\sname\s:\s).+" /proc/cpuinfo)" 
+printf "DISTR\t: %s\n" "$(lsb_release -sd)"
 
 echo
 printf "Implementations\n"
