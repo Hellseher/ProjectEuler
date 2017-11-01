@@ -1,14 +1,16 @@
 # File          : README.org
 # Created       : Sat 30 May 2015 22:54:09
-# Last Modified : <2017-10-18 Wed 22:48:51 BST> sharlatan
+# Last Modified : <2017-11-01 Wed 23:13:28 GMT> Sharlatan
 # Maintainer    : sharlatan <sharlatanus@gmail.com>
+
+#+TITLE: PEH
+/Project Euler Handbook/
 
 #+BEGIN_QUOTE
 為せば成る
 為さねば成らぬ何事も
 成らぬは人の為さぬなりけり
 #+END_QUOTE
-
 
 * Synopsis
 [[https://projecteuler.net/][Project Euler]] collection of solutions and libraries.
