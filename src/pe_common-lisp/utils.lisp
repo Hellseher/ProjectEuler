@@ -1,8 +1,8 @@
 ;;;; pe-utils.lisp
 ;;;; Created  : <2020-02-09 Sun 21:39:50 GMT>
-;;;; Modified : <2020-02-12 Wed 01:29:10 GMT>
+;;;; Modified : <2020-02-17 Mon 18:50:23 GMT>
 
-(in-package :peh/utils)
+(in-package :peh-utils)
 
 (defun compute-cache-path ()
   "Computes the directory where accumulated cache should reside."
@@ -12,12 +12,17 @@
                   (pathname-directory
                    (truename (asdf:system-source-directory :peh))))))
 
-(defun cache-save (file)
+(defun cache-save (sequence file)
   "Save acumulated cache under local source to the cache/FILE"
 
-  (let ((cache-path (compute-cache-path)))
+  (let* ((cache-path (compute-cache-path))
+         (cache-file (merge-pathnames cache-path file)))
     (ensure-directories-exist cache-path)
-    file))
+    (with-open-file (stream cache-file
+                            :direction :output
+                            :if-exists :supersede)
+      (with-standard-io-syntax
+        (print sequence stream)))))
 
 (defun cache-load (file)
   (let ((cache-path (compute-cache-path)))
@@ -31,7 +36,7 @@
 ;; + load from cache when exists or save first to cache if not
 ;; + key or option to use cache
 
-;;; Prime numbers
+;;; Numbers predicates
 
 (defun primep (n)
   "Primality test of the N by trial division."
@@ -45,6 +50,20 @@
               :do (when (zerop (mod n i))
                    (return-from primep nil)))
            t)))
+
+(defun fig-square-p (n)
+  "Check if the given N is a perfect square number.
+https://oeis.org/A000290
+ A000290 in the OEIS"
+  (check-type n (integer 0 *))
+  (let ((sqrt (isqrt n)))
+    (= n (* sqrt sqrt))))
+
+(defun fibonaccip (n)
+  "Check if the given number N is a Fibonacci number."
+  (check-type n (integer 0 *))
+  (or (fig-square-p (+ (* 5 (expt n 2)) 4))
+      (fig-square-p (- (* 5 (expt n 2)) 4))))
 
 (defun prime-set (n)
   "Return a set of prime nberes up to N."
@@ -62,6 +81,16 @@
   (loop :for f1 = 0 :then f2
      :and f2 = 1 :then (+ f1 f2)
      :repeat n :finally (return f1)))
+
+(defun fibonacci-nth (n)
+  (check-type n (integer 0 *))
+  (let* ((fibs '()))
+    (loop :for i :from 1
+       :do
+         (cond ((= (length fibs) n) (loop-finish))
+               ((< (length fibs) n) (when (fibonaccip i)
+                                      (push i fibs)))))
+    fibs))
 
 (defun fib (n)
   (fibonacci n))
@@ -128,9 +157,24 @@ WARNING: Slow after 1000000"
 
 ;;; DIGITS
 
-(defun %num-to-list (num)
-  "Coercing NUM to list."
-  (map 'list #'digit-char-p (prin1-to-string num)))
+(defun digits-to-number (digits)
+  "Return a number represented by list of DIGITS.
+Add check-type a list of integers."
+  (let* ((reversed-digits (reverse digits)))
+    (reduce
+     (lambda (digit number)
+       (+ digit (* 10 number)))
+     reversed-digits
+     :from-end t)))
+
+;; (defun number-to-list (n &optional base)
+;;   "Convert a given number N into list of digits, with optionals
+;;   BASE."
+;;   )
+
+(defun %num-to-list (n)
+  "Coercing N to list of digits."
+  (map 'list #'digit-char-p (prin1-to-string n)))
 
 (defun digit-sum (num)
   "Return a sum of digits for NUM."
@@ -150,7 +194,7 @@ WARNING: Slow after 1000000"
 ;;; FIGURATE NUMBERS
 
 (defun fig-three-num (n)
-  "Return computed NTH triangular number."
+  "Return computed N triangular number."
   (check-type n (integer 0 *))
   (if (= n 1)
       1

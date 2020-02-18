@@ -14,6 +14,12 @@
    (:file "pe-001-to-099" :depends-on ("packages" "utils"))))
 
 (defsystem "peh/test"
-  )
+  :description "Run all `pe-N' functions, which accept no arguments
+  and only return result as ingeger."
+  :components ((:module "t"
+                        :serial t
+                        :components ((:file "packages")
+                                     (:file "run" :depends-on ("packages")))))
+  :depends-on (:peh))
 
 ;;;; peh.lisp ends here
