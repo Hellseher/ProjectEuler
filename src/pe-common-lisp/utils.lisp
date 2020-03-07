@@ -1,6 +1,6 @@
 ;;;; pe-utils.lisp
 ;;;; Created  : <2020-02-09 Sun 21:39:50 GMT>
-;;;; Modified : <2020-02-17 Mon 18:50:23 GMT>
+;;;; Modified : <2020-3-07 Sat 20:46:58 gmt>
 
 (in-package :peh-utils)
 
@@ -29,19 +29,29 @@
     cache-path
     file
     cache-path))
+
+(defun load-as-list (filename)
+  (with-open-file (stream filename)
+    (loop
+       :for line = (read-line stream nil)
+       :while line
+       :collect line)))
+
 ;;; TODO
 ;; + add caching of sequences
 ;; + add load/save functionality
-;; + arguments checks
 ;; + load from cache when exists or save first to cache if not
 ;; + key or option to use cache
+
+(defparameter +phi+ (/ (1+ (sqrt 5)) 2))
 
 ;;; Numbers predicates
 
 (defun primep (n)
   "Primality test of the N by trial division."
   (check-type n (integer 0 *))
-  (cond ((= n 1) nil)
+  (cond ((= n 0) nil)
+        ((= n 1) nil)
         ((< n 4) t)
         ((zerop (mod n 2)) nil)
         ((< n 9) t)
@@ -51,113 +61,48 @@
                    (return-from primep nil)))
            t)))
 
-(defun fig-square-p (n)
-  "Check if the given N is a perfect square number.
-https://oeis.org/A000290
- A000290 in the OEIS"
-  (check-type n (integer 0 *))
-  (let ((sqrt (isqrt n)))
-    (= n (* sqrt sqrt))))
-
 (defun fibonaccip (n)
   "Check if the given number N is a Fibonacci number."
   (check-type n (integer 0 *))
   (or (fig-square-p (+ (* 5 (expt n 2)) 4))
       (fig-square-p (- (* 5 (expt n 2)) 4))))
 
-(defun prime-set (n)
-  "Return a set of prime nberes up to N."
+(defun palindromep (n)
+  "Check if the given number N is polindrome."
   (check-type n (integer 0 *))
-    (loop :for i :from 1 :upto n
-       :when (primep i)
-       :collect i))
+  (cond ((< n 10) nil)
+        (t (= n (reverse-digits n)))))
 
+(defun perfectp (n)
+  "Check if N is perfect number. It is a sum of all positive divisors
+of N which is equal to N."
+  (check-type n (integer 0 *))
+  (= (aliquot-sum n) n))
+
+(defun deficientp (n)
+  "Check if N is deficient number. It less then sum of it's proper
+  divisors."
+  (check-type n (integer 0 *))
+  (< (aliquot-sum n) n))
 
-;;;;
 
-(defun fibonacci (n)
+(defun nth-fibonacci (n)
   "Compute N's Fibonacci number."
   (check-type n (integer 0 *))
   (loop :for f1 = 0 :then f2
      :and f2 = 1 :then (+ f1 f2)
      :repeat n :finally (return f1)))
-
-(defun fibonacci-nth (n)
-  (check-type n (integer 0 *))
-  (let* ((fibs '()))
-    (loop :for i :from 1
-       :do
-         (cond ((= (length fibs) n) (loop-finish))
-               ((< (length fibs) n) (when (fibonaccip i)
-                                      (push i fibs)))))
-    fibs))
-
-(defun fib (n)
-  (fibonacci n))
-
 
 ;;; Sequences
-
-(defun seq-fibonaccies (n)
-  "Return sequence of Fibonacci numbers upto N."
-  (check-type n (integer 0 *))
-  (loop :for i :from 1 :upto n
-     :collect (fib i)))
-
-(defun seq-fibonaccies-less (n)
-  "Return a list of Fibonacci numbers with the last element less
-  then N."
-  (check-type n (integer 0 *)))
-
-(defun seq-primes (n)
-  (check-type n (integer 0 *))
-  (prime-set n))
-
-(defun seq-factors (num)
-  "Return a list of all positive factors of NUM."
-  (check-type num (integer 0 *))
-  (if (<= num 1)
-      '()
-      (let ((divs (list 1)))
-        (loop :for i :from 2 :upto (isqrt num)
-           :do (when (zerop (mod num i))
-                (push i divs)
-                (let ((j (/ num i)))
-                  (when (/= j i)
-                    (push j divs)))))
-        divs)))
-
-(defun seq-prime-factors (num)
-  "Return a list of all prime proper devisors of NUM."
-  (loop :for i :from 2 :upto (sqrt num)
-     :when (and (primep i)
-                (zerop (mod num i)))
-     :collect i))
-
 
-(defun aliquot-sum (num)
-  "Return the sum of all proper devisors of NUM."
-  (reduce #'+ (factors-set num)))
-
-(defun perfect-p (num)
-  "Test NUM for perfectness."
-  (if (= (aliquot-sum num) num)
-      t
-      nil))
-
-(defun perfects-set (num)
-  "Return a set of perfect numbers upto NUM.
-WARNING: Slow after 1000000"
-  (let ((perfets ()))
-    (loop for i from 1 upto num
-       do (when (perfect-p i)
-            (push i perfets)))
-    perfets))
-
+(defun aliquot-sum (n)
+  "Return the sum of all proper devisors of N."
+  (check-type n (integer 0 *))
+  (reduce #'+ (seq-factors n)))
 
-;;; DIGITS
+;;; Digits
 
-(defun digits-to-number (digits)
+(defun digits->number (digits)
   "Return a number represented by list of DIGITS.
 Add check-type a list of integers."
   (let* ((reversed-digits (reverse digits)))
@@ -167,18 +112,24 @@ Add check-type a list of integers."
      reversed-digits
      :from-end t)))
 
-;; (defun number-to-list (n &optional base)
-;;   "Convert a given number N into list of digits, with optionals
-;;   BASE."
-;;   )
+(defun reverse-digits (n &optional (base 10))
+  "Return an intger with reversed digits of N.
+https://codereview.stackexchange.com/questions/1219"
+  (check-type n (integer 0 *))
+  (labels ((next (n v)
+             (if (zerop n) v
+                 (multiple-value-bind (q r)
+                     (truncate n base)
+                   (next q (+ (* v base) r))))))
+    (next n 0)))
 
-(defun %num-to-list (n)
+(defun number->list (n)
   "Coercing N to list of digits."
   (map 'list #'digit-char-p (prin1-to-string n)))
 
-(defun digit-sum (num)
-  "Return a sum of digits for NUM."
-  (reduce #'+ (%num-to-list num)))
+(defun digits-sum (n)
+  "Return a sum of digits for a given number N."
+  (reduce #'+ (number->list n)))
 
 (defun factorial (n)
   "Return factorial of N."
@@ -190,8 +141,25 @@ Add check-type a list of integers."
   (check-type n (integer 0 *))
   (factorial n))
 
+(defun sum-of-numbers (n)
+  "Return a resulting sum for the integers sequence up to N."
+  (/ (+ (expt n 2) n) 2))
+
+(defun square-pyramidal-number (n)
+  "Return Nth pyramidal number."
+  (/ (+ (* (expt n 3) 2)
+        (* (expt n 2) 3)
+        n)
+     6))
 
-;;; FIGURATE NUMBERS
+;;; Figurate Numbers
+
+(defun fig-square-p (n)
+  "Check if the given N is a perfect square number.
+https://oeis.org/A000290"
+  (check-type n (integer 0 *))
+  (let ((sqrt (isqrt n)))
+    (= n (* sqrt sqrt))))
 
 (defun fig-three-num (n)
   "Return computed N triangular number."
@@ -225,7 +193,7 @@ Add check-type a list of integers."
   (check-type n (integer 0 *))
   n)
 
-;;; STRINGS
+;;; Strings
 
 ;; Not working with UNICODE only Enlish alphabet.
 (defun word-to-alpha-pos (word)
@@ -233,4 +201,5 @@ Add check-type a list of integers."
   alphabetical position."
   (mapcar (lambda (char) (+ (- char (char-code #\A)) 1))
           (mapcar #'char-code (coerce (string-upcase word) 'list))))
+
 ;;; End of project-euler.lisp
